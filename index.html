@@ -18,22 +18,30 @@
             <input type="text" name="endDate" />
             <input type="submit" value="Submit" />
         </form>
-        
+
         <div id="header">
 
         </div>
     </div>
     <script type="text/javascript">
 
-        document.getElementById("datesDiff_form").addEventListener('submit', function(event) {
+        document.getElementById("datesDiff_form").addEventListener('submit', function (event) {
             event.preventDefault();
-            const startDate = new Date(document.forms["datesDiff_form"]["startDate"].value);
-            const endDate = new Date(document.forms["datesDiff_form"]["endDate"].value);
-            const startDateStr = dateFns.format(startDate, 'DD/MM/YYYY');
-            const endDateStr = dateFns.format(endDate, 'DD/MM/YYYY');
-            const daysDiff = dateFns.differenceInDays(endDate, startDate);
+            let startDate = new Date(document.forms["datesDiff_form"]["startDate"].value);
+            let endDate = new Date(document.forms["datesDiff_form"]["endDate"].value);
+            let message = null;
+            if (isNaN(startDate.getDate())) {
+                this.message = '<h5>Invalid Start Date</h5>'
+            } else if (isNaN(endDate.getDate())) {
+                this.message = '<h5>Invalid End Date</h5>'
+            } else {
+                const startDateStr = dateFns.format(startDate, 'DD/MM/YYYY');
+                const endDateStr = dateFns.format(endDate, 'DD/MM/YYYY');
+                const daysDiff = dateFns.differenceInDays(endDate, startDate);
+                this.message = `<h5>There are ${daysDiff} days between ${startDateStr} and ${endDateStr}</h5>`;
+            }
             const content = document.getElementById('header');
-            content.innerHTML = `<h5>There are ${daysDiff} days between ${startDateStr} and ${endDateStr}</h5>`;
+            content.innerHTML = this.message;
         });
     </script>
 </body>
