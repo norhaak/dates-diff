@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="http://cdn.date-fns.org/v1.9.0/date_fns.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <form id="datesDiff_form">
+            <label>Start Date:</label>
+            <input type="text" name="startDate" />
+            <label>End Date:</label>
+            <input type="text" name="endDate" />
+            <input type="submit" value="Submit" />
+        </form>
+        
+        <div id="header">
+
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        document.getElementById("datesDiff_form").addEventListener('submit', function(event) {
+            event.preventDefault();
+            const startDate = new Date(document.forms["datesDiff_form"]["startDate"].value);
+            const endDate = new Date(document.forms["datesDiff_form"]["endDate"].value);
+            const startDateStr = dateFns.format(startDate, 'DD/MM/YYYY');
+            const endDateStr = dateFns.format(endDate, 'DD/MM/YYYY');
+            const daysDiff = dateFns.differenceInDays(endDate, startDate);
+            const content = document.getElementById('header');
+            content.innerHTML = `<h5>There are ${daysDiff} days between ${startDateStr} and ${endDateStr}</h5>`;
+        });
+    </script>
+</body>
+
+</html>
